@@ -1,0 +1,18 @@
+package errors
+
+import (
+	"encoding/json"
+	"net/http"
+)
+
+func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusNotFound)
+
+	error := errorResponse{
+		Code:    http.StatusNotFound,
+		Message: "URL not found!",
+	}
+
+	json.NewEncoder(w).Encode(error)
+}
